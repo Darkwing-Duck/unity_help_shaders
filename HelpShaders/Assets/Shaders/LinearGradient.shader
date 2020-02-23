@@ -80,10 +80,8 @@
                 // gradient value
                 fixed gr = smoothstep(0.5 - halfWidth, 0.5 + halfWidth, i.uv.x);
                 
-                // apply _ColorIn
-                col *= gr * _ColorIn;
-                // apply _ColorOut
-                col += (1 - gr) * _ColorOut;
+                // apply _ColorIn and _ColorOut
+                col *= gr * _ColorIn + (1 - gr) * _ColorOut;
                 
                 return col * i.color;
             }
