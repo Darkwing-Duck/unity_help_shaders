@@ -11,7 +11,7 @@
         // gradient angle
         _Angle ("Angle", Range(0, 360)) = 0
         // gradient width
-        _Width ("Width", Range(0, 10)) = 1
+        _Width ("Width", Range(0, 5)) = 1
     }
     SubShader
     {
