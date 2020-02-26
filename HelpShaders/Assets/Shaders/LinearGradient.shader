@@ -42,8 +42,6 @@
                 float4 vertex : SV_POSITION;
                 fixed4 color    : COLOR;
             };
-
-            static const float PI = 3.14159265;
             
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -65,20 +63,20 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float2 st = frac(i.uv);
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                
+                fixed4 col = tex2D(_MainTex, st);
                 // displace to origin
-                i.uv -= 0.5;
+                st -= 0.5;
                 // apply rotation matrix 
-                i.uv = mul(rotate2d(_Angle / 180 * PI), i.uv);
+                st = mul(rotate2d(_Angle / 180 * PI), st);
                 // back to the center
-                i.uv += 0.5;
+                st += 0.5;
                 
                 // get half of gradient width
                 fixed halfWidth = _Width / 2;
                 // gradient value
-                fixed gr = smoothstep(0.5 - halfWidth, 0.5 + halfWidth, i.uv.x);
+                fixed gr = smoothstep(0.5 - halfWidth, 0.5 + halfWidth, st.x);
                 
                 // apply _ColorIn and _ColorOut
                 col *= gr * _ColorIn + (1 - gr) * _ColorOut;
