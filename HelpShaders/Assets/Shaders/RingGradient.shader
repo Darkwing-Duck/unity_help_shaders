@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Gradient/Linear"
+﻿Shader "Unlit/Gradient/Ring"
 {
     Properties
     {
@@ -11,10 +11,20 @@
         _ColorOut ("Color Out", Color) = (1, 1, 1, 1)
 
         [Space(10)]
-        // gradient angle
-        _Angle ("Angle", Range(0, 360)) = 0
-        // gradient width
-        _GrSize ("Gradient Size", Range(0, 5)) = 1
+        // circle radius
+        _Radius ("Radius", Range(0, 5)) = 0.4
+        // ring width
+        _Width ("Ring Width", Range(0, 1)) = 0.05
+
+        [Space(10)]
+        // inner gradient size
+        _GrIn ("Inner Gradient Size", Range(0, 2)) = 0.1
+        // outter gradient size
+        _GrOut ("Outter Gradient Size", Range(0, 2)) = 0.1
+
+        [Space(10)]
+        _ScaleX ("Scale X", Range(0, 1)) = 1
+        _ScaleY ("Scale Y", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -52,8 +62,14 @@
             fixed4 _ColorIn;
             fixed4 _ColorOut;
 
-            half _Angle;
-            half _GrSize;
+            float _Radius;
+            float _Width;
+
+            float _GrIn;
+            float _GrOut;
+
+            float _ScaleX;
+            float _ScaleY;
 
             v2f vert (appdata v)
             {
@@ -67,23 +83,22 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 float2 st = frac(i.uv);
+
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, st);
+                float2 scale = half2(_ScaleX, _ScaleY);
+
                 // displace to origin
                 st -= 0.5;
-                // apply rotation matrix
-                st = mul(rotate2d(_Angle / 180 * PI), st);
+                // apply scale
+                st /= scale;
                 // back to the center
                 st += 0.5;
 
-                // get half of gradient width
-                fixed halfSize = _GrSize / 2;
-                // gradient value
-                fixed gr = smoothstep(0.5 - halfSize, 0.5 + halfSize, st.x);
+                fixed gr = ring(st, _Radius, _GrIn, _GrOut, _Width);
 
                 // apply _ColorIn and _ColorOut
                 col *= gr * _ColorIn + (1 - gr) * _ColorOut;
-
                 return col * i.color;
             }
             ENDCG

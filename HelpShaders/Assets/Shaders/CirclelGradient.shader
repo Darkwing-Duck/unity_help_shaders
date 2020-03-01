@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Gradient/Radial"
+﻿Shader "Unlit/Gradient/Circle"
 {
     Properties
     {
@@ -9,13 +9,14 @@
         _ColorIn ("Color In", Color) = (1, 1, 1, 1)
         // gradient ent color
         _ColorOut ("Color Out", Color) = (1, 1, 1, 1)
-        // gradient angle
-        _Radius ("Radius", Range(0, 5)) = 1
-        // gradient width
-        _GrSize ("Gradient Size", Range(0, 5)) = 1
 
         [Space(10)]
-        //scale
+        // gradient angle
+        _Radius ("Radius", Range(0, 3)) = 0.5
+        // gradient width
+        _GrSize ("Gradient Size", Range(0, 5)) = 0.5
+
+        [Space(10)]
         _ScaleX ("Scale X", Range(0, 1)) = 1
         _ScaleY ("Scale Y", Range(0, 1)) = 1
     }

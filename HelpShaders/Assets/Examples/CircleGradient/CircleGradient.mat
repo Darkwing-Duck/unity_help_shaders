@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RadialGradient
+  m_Name: CircleGradient
   m_Shader: {fileID: 4800000, guid: 05a721f0697734f3d9fc8e6b3aefe966, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -64,14 +64,14 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GrSize: 1.03
+    - _GrSize: 0.5
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 2.34
+    - _Radius: 0.5
     - _ScaleX: 1
-    - _ScaleY: 0.3125
+    - _ScaleY: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -81,8 +81,8 @@ Material:
     m_Colors:
     - _Angle: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorIn: {r: 1, g: 0.903612, b: 0, a: 1}
-    - _ColorOut: {r: 1, g: 0.5534426, b: 0, a: 1}
+    - _ColorIn: {r: 0, g: 0.82210016, b: 1, a: 1}
+    - _ColorOut: {r: 0.08130119, g: 0.45709357, b: 0.5943396, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EndColor: {r: 1, g: 1, b: 1, a: 1}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
