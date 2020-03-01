@@ -1,4 +1,4 @@
-# unity_help_shaders
+# Unity Helpful Shaders
 Helpful shaders for unity
 
 ## Linear Gradient
