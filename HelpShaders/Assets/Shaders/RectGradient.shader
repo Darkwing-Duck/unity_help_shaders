@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Gradient/Linear"
+﻿Shader "Unlit/Gradient/Rect"
 {
     Properties
     {
@@ -12,9 +12,12 @@
 
         [Space(10)]
         // gradient angle
-        _Angle ("Angle", Range(0, 360)) = 0
+        _Width ("Width", Range(0, 2)) = 0.8
+        _Height ("Height", Range(0, 2)) = 0.8
         // gradient width
-        _GrSize ("Gradient Size", Range(0, 5)) = 1
+        _GrSize ("Gradient Size", Range(0, 2)) = 0.2
+        // gradient angle
+        _Angle ("Angle", Range(0, 360)) = 0
     }
     SubShader
     {
@@ -52,8 +55,10 @@
             fixed4 _ColorIn;
             fixed4 _ColorOut;
 
-            half _Angle;
-            half _GrSize;
+            float _Width;
+            float _Height;
+            float _GrSize;
+            float _Angle;
 
             v2f vert (appdata v)
             {
@@ -67,6 +72,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 float2 st = frac(i.uv);
+
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, st);
 
@@ -77,14 +83,10 @@
                 // back to the center
                 st += 0.5;
 
-                // get half of gradient width
-                fixed halfSize = _GrSize / 2;
-                // gradient value
-                fixed gr = smoothstep(0.5 - halfSize, 0.5 + halfSize, st.x);
+                fixed gr = rect(st, _Width, _Height, _GrSize);
 
                 // apply _ColorIn and _ColorOut
                 col *= gr * _ColorIn + (1 - gr) * _ColorOut;
-
                 return col * i.color;
             }
             ENDCG
